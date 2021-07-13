@@ -96,7 +96,6 @@ int lastOccurrence(vector<int>& arr, int x) {
     }
     return -1;
 }
-
 int countOccurrences(vector<int>& arr, int x) {
     int first = firstOccurrence(arr, x);
     if(first == -1)
