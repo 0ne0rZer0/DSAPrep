@@ -1,2 +1,1 @@
-Sum to be found is 33
-2 to 4
+6
