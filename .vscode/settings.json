@@ -52,10 +52,12 @@
     "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
   },
   "files.associations": {
+    "*.js": "javascriptreact",
     "xiosbase": "cpp",
     "vector": "cpp",
     "deque": "cpp",
     "ios": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "xstring": "cpp"
   }
 }
