@@ -23,26 +23,40 @@ typedef pair< int ,int > pii;
     freopen("output.txt", "w", stdout);
 #define spacing << " " 
 #define FIO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-
-int minimumWaitingTime(vector<int>& query) {
-  sort(query.begin(), query.end());
-  int ans = 0;
-  int n = query.size();
-  for(int i = 0; i < n - 1; i++) {
-    ans += query[i] * (n - (i + 1));
-  } 
+bool sortbysec(const pair<int,int> &a,
+              const pair<int,int> &b)
+{
+    return (a.second < b.second);
+}
+vector<int> intervalScheduling(vector<pair<int,int>> intervals) {
+  sort(intervals.begin(), intervals.end(), sortbysec);
+  vector<int> ans;
+  int visit = intervals[0].second;
+  int i = 1;
+  ans.emplace_back(visit);
+  while(i < intervals.size()) {
+    if(intervals[i].second > visit) {
+      visit = i;
+      ans.emplace_back(visit);
+    }
+    i++;
+  }
   return ans;
 }
-
 int main() {
     FIO
     OJ
     int size;
     cin >> size;
-    vector<int> arr(size);  
+    vector<pair<int,int>> arr(size);  
     for(auto &it : arr) {
-        cin >> it;
+      pair<int,int> pr;  
+      cin >> it.first;
+      cin >> it.second;
     }
-    cout << minimumWaitingTime(arr);
+    vector<int> ans = intervalScheduling(arr);
+    for(int i : ans) {
+      cout << i << " ";
+    }
     return 0;
 }
