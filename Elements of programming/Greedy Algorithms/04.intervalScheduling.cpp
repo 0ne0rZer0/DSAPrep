@@ -35,8 +35,8 @@ vector<int> intervalScheduling(vector<pair<int,int>> intervals) {
   int i = 1;
   ans.emplace_back(visit);
   while(i < intervals.size()) {
-    if(intervals[i].second > visit) {
-      visit = i;
+    if(intervals[i].first > visit) {
+      visit = intervals[i].second;
       ans.emplace_back(visit);
     }
     i++;
@@ -50,7 +50,6 @@ int main() {
     cin >> size;
     vector<pair<int,int>> arr(size);  
     for(auto &it : arr) {
-      pair<int,int> pr;  
       cin >> it.first;
       cin >> it.second;
     }

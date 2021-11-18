@@ -21,48 +21,39 @@ typedef pair< int ,int > pii;
 #define OJ \
     freopen("input.txt", "r", stdin); \
     freopen("output.txt", "w", stdout);
+#define spacing << " " 
 #define FIO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 
-// Conquer
-int merge(vector<int>& arr, int start, int mid, int end) {
-  vector<int> temp(end-start+1, 0);
-  int i,j,k;
-  i = start;
-  j = mid;
-  k = start;
-  int inv_count = 0;
-  while((i <= mid-1) && (j <= end)) {
+void merge(vector<int>& arr, int start, int mid, int end) {
+  vector<int> temp(end - start + 1, 0);
+  int i = start, j = mid+1, k = 0;
+  while(i <= mid && j <= end) {
     if(arr[i] <= arr[j]) {
       temp[k++] = arr[i++];
     } else {
       temp[k++] = arr[j++];
-      inv_count = inv_count + ( mid -i);
     }
-  }
-  while(i < mid) {
+  } 
+  while(i <= mid) {
     temp[k++] = arr[i++];
   }
   while(j <= end) {
     temp[k++] = arr[j++];
   }
-
-  for(i = start; i <= end; i++) {
-    arr[i] = temp[i];
+  k = 0;
+  for(int i = start; i <= end; i++) {
+    arr[i] = temp[k++];
   }
-  return inv_count;
 }
-
-// Divide
-int mergeSortInversions(vector<int>& arr, int start, int end) {
+void mergeSort(vector<int>& arr, int start, int end) {
   if(start < end) {
-    int mid = (end+start)/2;
-    int left = mergeSortInversions(arr, start, mid);
-    int right = mergeSortInversions(arr, mid+1, end);
-    int inversions = merge(arr, start, mid, end);
-    return left + right + inversions;
+    int mid = start + (end-start)/2;
+    mergeSort(arr, start, mid);
+    mergeSort(arr, mid+1, end);
+    merge(arr, start, mid, end);
   }
-  return 0;
 }
+
 int main() {
     FIO
     OJ
@@ -72,7 +63,9 @@ int main() {
     for(auto &it : arr) {
         cin >> it;
     }
-    int inversions = mergeSortInversions(arr, 0, arr.size()-1);
-    cout << inversions << endl;
+    mergeSort(arr, 0, size-1);
+    for(int i : arr) {
+      cout << i << " ";
+    }
     return 0;
 }
